@@ -10,7 +10,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Stewart\Contracts\Exception\ScheduleError;
 use Stewart\Contracts\Schedule\ScheduledRun;
-use Stewart\Contracts\Sun\SunEvent;
 use Stewart\Contracts\Time\Duration;
 use Stewart\Contracts\Time\SunOffset;
 use Stewart\Testing\Exception\AssertsReason;
@@ -86,8 +85,8 @@ final class ManualSchedulerTest extends TestCase
 
     public function testSunEventsFollowTheCalendarAndOffset(): void
     {
-        $this->scheduler->runAtSunEvent(SunEvent::Sunrise, $this->record('sunrise'), SunOffset::before(Duration::minutes(30)));
-        $this->scheduler->runAtSunEvent(SunEvent::Sunset, $this->record('sunset'));
+        $this->scheduler->runAtSunrise($this->record('sunrise'), SunOffset::before(Duration::minutes(30)));
+        $this->scheduler->runAtSunset($this->record('sunset'));
 
         $this->advance(Duration::hours(24));
 
